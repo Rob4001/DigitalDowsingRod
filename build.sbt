@@ -8,13 +8,17 @@ libraryDependencies ++= Seq(
   cache
 )     
 
+play.Project.playJavaSettings
+
 val appDependencies = Seq(
     "mysql" % "mysql-connector-java" % "5.1.18"
 )
 
-play.Project.defaultJavaSettings
-
-val main = play.Project(appName, appVersion, appDependencies)
-.settings(
-    closureCompilerOptions += "ecmascript5"  
+javascriptEntryPoints <<= baseDirectory(base =>
+    base / "app" / "assets" / "javascripts" / "main" ** "*.js"
 )
+
+closureCompilerOptions += "ecmascript5"
+
+
+
