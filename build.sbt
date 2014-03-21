@@ -12,4 +12,9 @@ val appDependencies = Seq(
     "mysql" % "mysql-connector-java" % "5.1.18"
 )
 
-play.Project.playJavaSettings
+play.Project.defaultJavaSettings
+
+val main = play.Project(appName, appVersion, appDependencies)
+.settings(
+    closureCompilerOptions += "ecmascript5"  
+)
