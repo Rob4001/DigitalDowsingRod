@@ -14,6 +14,7 @@ public class MasterActor extends UntypedActor{
 
 	private ActorRef slave;
 	private int progress;
+	private End end;
 
 	public MasterActor(String s) {
 	}
@@ -36,7 +37,7 @@ public class MasterActor extends UntypedActor{
 			}
 			
 		}else if (msg instanceof End){
-			End end = (End) msg;
+			end = (End) msg;
 		}
 		
 	}
