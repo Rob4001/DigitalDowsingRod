@@ -1,0 +1,9 @@
+@(message: String)
+
+@main("DigitalDowsingRod - Map") {
+
+<div id="map" style="width: 700px; height: 500px; border: 1px solid black;" onload="init()"></div>
+
+<script type="text/javascript" src="http://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=F481BBF73994038DE0430B6CA40AB6D2"></script>
+<script src="@routes.Assets.at("javascripts/map.js")" type="text/javascript"></script>
+}
