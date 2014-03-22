@@ -39,6 +39,10 @@ public class DataZoneLatLong extends Model {
       this.latitude = latitude;
     }
 
+    public static DataZoneLatLong getDataZoneLatLongFromDatazone(String datazone){
+      return find.where().eq("data_zone", datazone).findUnique();
+    }
+
     public static Finder<String,DataZoneLatLong> find = new Finder<String,DataZoneLatLong>(
         String.class, DataZoneLatLong.class
     );
