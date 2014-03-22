@@ -38,9 +38,9 @@ public class Util extends Controller {
 		System.out.println(wardData.localAuthorityName);
 		DomesticElectricityConsumption dec =  DomesticElectricityConsumption.getDomesticElectricityConsumptionFromMiddleLayerSuperOutputAreaCode(wardData.intermediateGeographyCode);
 		NonDomesticElectricityConsumption nondec =  NonDomesticElectricityConsumption.getNonDomesticElectricityConsumptionFromMiddleLayerSuperOutputAreaCode(wardData.intermediateGeographyCode);
+		DatazoneWindspeed windspeed = DatazoneWindspeed.getDatazoneWindspeedFromDatazone(postcodeObj.datazone);
 
-
-		return ok(userstats.render(postcodeObj,wardData, dec, nondec));
+		return ok(userstats.render(postcodeObj,wardData, dec, nondec, windspeed));
 	}
 
 
