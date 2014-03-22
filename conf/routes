@@ -11,6 +11,10 @@ GET     /results                    controllers.Application.results()
 POST    /results                    controllers.Application.resultsSubmit()
 POST    /progress/:id               controllers.Application.progress(id: String)
 
+
+#Testing 
+GET /datastats/:postcode			controllers.Util.userInformationTable(postcode: String)
+
 #Imports 
 GET     /import                     controllers.Application.dataImport()
 POST    /household                  controllers.Application.householdImport()

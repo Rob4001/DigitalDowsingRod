@@ -1,0 +1,9 @@
+@(postcode: SmallLargeUserPostcodes)(ward: MultiMemberWards)
+
+<table class='table'>
+<tr><th>Information</th><th>Value</th></tr>
+<tr><td>Postcode</td><td>@postcode.postcode</td></tr>
+<tr><td>Area</td><td>@ward.multiMemberWardName</td></tr>
+<tr><td>Datazone</td><td>@ward.datazone</td></tr>
+<tr><td>Civil Parish</td><td>@postcode.civilParish</td></tr>
+</table>
