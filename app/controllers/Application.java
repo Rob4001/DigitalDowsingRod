@@ -23,6 +23,14 @@ public class Application extends Controller {
     public static Result map() {
         return ok(map.render(""));
     }
+    
+    public static Result questions() {
+        return ok(questions.render(""));
+    }
+    
+    public static Result results() {
+        return ok(results.render(""));
+    }
 
     public static Result dataImport() {
         return ok(dataImport.render(""));

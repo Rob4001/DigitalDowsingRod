@@ -1,6 +1,31 @@
 @(message: String)
 
-@main("DigitalDowsingRod - Finding More About You") {
+@scripts = {
+<script type="text/javascript">
+	$(function(){
+		$('.option').css('display','none');
+		$('.selector').change(function(){
+			$('#'+$( this ).val()).slideToggle('slow');
+			return false;
+		});
+	});
+</script>
+}
+
+@main("DigitalDowsingRod - Finding More About You",scripts) {
+
+<form>
+<h3>What Renewables are you interested in?</h3>
+<input class="selector" type="checkbox" value="solar">Solar Energy
+<input class="selector" type="checkbox" value="wind">Wind Energy
+</form>
+
+<div class='option' id="solar">
+	SOLAR
+</div>
+<div class='option' id="wind">
+	WIND
+</div>
 
 
 

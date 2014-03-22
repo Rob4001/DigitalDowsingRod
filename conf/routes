@@ -7,11 +7,13 @@ GET     /                           controllers.Application.index()
 GET     /home                       controllers.Application.index()
 GET		/about						controllers.Application.about()
 GET     /map                        controllers.Application.map()
+GET     /questions                  controllers.Application.questions()
+GET     /results                    controllers.Application.results()
 
 
 #Imports 
 GET     /import                     controllers.Application.dataImport()
-POST     /household                  controllers.Application.householdImport()
+POST    /household                  controllers.Application.householdImport()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
