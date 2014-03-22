@@ -4,6 +4,7 @@
 
 # Pages
 GET     /                           controllers.Application.index()
+GET		/about						controllers.Application.about()
 GET     /map                        controllers.Application.map()
 
 
