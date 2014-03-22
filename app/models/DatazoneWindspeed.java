@@ -47,6 +47,13 @@ public class DatazoneWindspeed extends Model {
 		this.windspeed45m = windspeed45m;
     }
 
+    public static DatazoneWindspeed getDatazoneWindspeedFromDatazone(String dataZone){
+    	DatazoneWindspeed tasks = find.where()
+    	.eq("data_zone", dataZone).findUnique();
+    	return tasks;
+
+    }
+
     public static Finder<String,DatazoneWindspeed> find = new Finder<String,DatazoneWindspeed>(
         String.class, DatazoneWindspeed.class
     );

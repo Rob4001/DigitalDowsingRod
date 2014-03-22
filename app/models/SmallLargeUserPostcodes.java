@@ -164,6 +164,18 @@ public class SmallLargeUserPostcodes extends Model {
 		this.splitIndicator = splitIndicator;
     }
 
+    public static SmallLargeUserPostcodes getSmallLargeUserPostcodesFromPostcode(String postcode){
+    	SmallLargeUserPostcodes tasks = find.where()
+    	.eq("postcode", postcode).findUnique();
+    	return tasks;
+    }
+
+    public static List<SmallLargeUserPostcodes> postCodeAutocompleteList(String postcode){
+    	List<SmallLargeUserPostcodes> tasks = find.where()
+    	.ilike("postcode", "%"+postcode+"%").findList();
+    	return tasks;
+    }
+
     public static Finder<String,SmallLargeUserPostcodes> find = new Finder<String,SmallLargeUserPostcodes>(
         String.class, SmallLargeUserPostcodes.class
     );
