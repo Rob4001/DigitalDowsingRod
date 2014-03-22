@@ -1,0 +1,3 @@
+digital dowsing rod
+
+A tool utilising several sources of open data to suggest renewable energy option, like solar power, to city residents and businesses based on their location, and show avg values of savings, usage and other values per city area
