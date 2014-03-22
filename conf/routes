@@ -9,6 +9,7 @@ GET     /map                        controllers.Application.map()
 GET     /questions                  controllers.Application.questions()
 GET     /results                    controllers.Application.results()
 POST    /results                    controllers.Application.resultsSubmit()
+POST    /progress/:id               controllers.Application.progress(id: String)
 
 #Imports 
 GET     /import                     controllers.Application.dataImport()

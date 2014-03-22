@@ -9,16 +9,23 @@ import play.libs.F.Promise;
 import play.mvc.*;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
+import scala.concurrent.Await;
+import scala.concurrent.Future;
+import scala.concurrent.duration.Duration;
 
 import java.io.File;
 
 import controllers.actors.MasterActor;
+import controllers.actors.messages.Ping;
 import controllers.actors.messages.StartMessage;
-
+import controllers.actors.messages.Update;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.dispatch.ExecutionContexts;
 import akka.dispatch.Futures;
+import akka.japi.Function;
+import akka.pattern.Patterns;
+import akka.util.Timeout;
 import views.html.*;
 import models.*;
 import static akka.pattern.Patterns.ask;
@@ -48,40 +55,18 @@ public class Application extends Controller {
     	return ok(results.render(myActor.path().name()));
     }
     
-    public static WebSocket<Integer> progress(final String processId) {
-    	return new WebSocket<Integer>(){
-    		 // Called when the Websocket Handshake is done.
-            public void onReady(WebSocket.In<Integer> in, final WebSocket.Out<Integer> out) {
-
-                // For each event received on the socket,
-                in.onMessage(new Callback<Integer>() {
-					@Override
-					public void invoke(Integer e) throws Throwable {
-						 
-				              out.write(e);
-				              if (e >= 100) {
-				                out.close();
-				              }
-				           
-						
-					}
-                });
-
-                // When the socket is closed.
-                in.onClose(new Callback0() {
-                    public void invoke() {
-
-                        System.out.println("Disconnected");
-
-                    }
-                });
-
-                
-
-            }
-    	};
-       
-          
+    public static Result progress(String uuid) {
+    	 uuid =  "akka://application/user/"+uuid;
+    	 Timeout timeout = new Timeout(Duration.create(5, "seconds"));
+         ActorRef myAct=  Akka.system().actorSelection(uuid).anchor();
+         Future<Object> future = Patterns.ask(myAct, new Ping(), 3000);
+         try {
+			return ok(Integer.toString(((Update) Await.result(future, timeout.duration())).getProgress()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         return internalServerError("Server Derp");
         }
     
     public static Result results() {

@@ -2,20 +2,29 @@
 
 @scripts = {
 <script type="text/javascript">
-$(function() {
+function getPercentage()
+            {
 
-   // Initialise the progress bar.
-   var $progressbar = $('#progressbar');
+                $.ajax({
+                    type: "GET",
+                    url: "/progress/@processId",
+                    dataType: "html",
+                    success: function(html)
+                        {
+                        $('#progressbar').css("width",html+"%");
 
-   // Open the web socket connection.
-   var serverUrl = $progressbar.data('url');
-   var socket = new WebSocket(serverUrl);
 
-   // Use web socket messages to update the progress bar.
-   socket.onmessage = function(event) {
-      $progressbar.css('width', parseInt(event.data)+"%");
-   };
-});
+                        }
+                });
+
+            }
+
+            $(document).ready(function() {
+
+
+            setInterval("getPercentage()",100);
+            });
+
 </script>
 }
 
@@ -23,7 +32,7 @@ $(function() {
 
 	<h3>Calculating</h3>
 	<div class="progress progress-striped active">
-  		<div data-url="@@{jqueryui.ProgressSocket.progress(processId)}" id="processbar" class="progress-bar" style="width: 45%"></div>
+  		<div data-url="@@{controllers.Application.progress(processId)}" id="processbar" class="progress-bar" style="width: 45%"></div>
 	</div>
 	
 	<div class="jumbotron" style="clear:both;margin-top:40px;">
