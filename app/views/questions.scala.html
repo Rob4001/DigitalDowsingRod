@@ -4,7 +4,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('.option').css('display','none');
-		$('.selector').change(function(){
+		$('.s').change(function(){
 			$('#'+$( this ).val()).slideToggle('slow');
 			return false;
 		});
@@ -14,20 +14,151 @@
 
 @main("DigitalDowsingRod - Finding More About You",scripts) {
 
-<form>
-<h3>What Renewables are you interested in?</h3>
-<input class="selector" type="checkbox" value="solar">Solar Energy
-<input class="selector" type="checkbox" value="wind">Wind Energy
-</form>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h3>What Renewables are you interested in?</h3>
+		<div class="checkbox">
+			<label><input type="checkbox" class="s" value="solar">Solar Energy</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" class="s" value="wind">Wind Energy</label>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="form-group">
+		    <label class="control-label">Type of House</label>
+			<select class="form-control" id="select">
+				<option>Flat</option>
+			   	<option>Tennement (whatever)</option>
+			   	<option>Semi-detatched</option>
+			   	<option>Bungalow</option>
+			   	<option>Something else</option>
+			</select>
+		</div>
+		
+		<div class="form-group">
+		    <label class="control-label">Amount of Energy Needed</label>
+		 	<div class="range">
+				<input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+				<output id="range">50</output>
+			</div>
+		</div>
+		
+		<div class="form-group">
+		    <label class="control-label">Budget</label>
+		 	<div class="range">
+				<input type="range" name="range" min="1" max="100" value="50" onchange="range.value=value">
+				<output id="range">50</output>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+
 
 <div class='option' id="solar">
-	SOLAR
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+		  		<div class="panel-heading">
+		    		<h3 class="panel-title"><img src="@routes.Assets.at("images/solarpanel.png")" style="height:20px;">
+		    		Solar Power</h3>
+		  		</div>
+		  		<div class="panel-body">
+		  			<h4>First we need to ask you a few questions.</h4>
+		    		
+		    		<div class="form-group">
+		    			<label class="control-label">Type of Roof</label>
+		    			
+						<select class="form-control" id="select">
+							<option>Flat</option>
+						   	<option>Sloped/Peaked</option>
+						</select>
+					</div>
+	        		
+	                <div class="form-group">
+		    			<label class="control-label">Roof Orientation</label>
+		    			
+						<select class="form-control" id="select">
+							<option>N</option>
+						   	<option>NE</option>
+						   	<option>E</option>
+						   	<option>SE</option>
+						   	<option>S</option>
+						   	<option>SW</option>
+						   	<option>W</option>
+						   	<option>NW</option>
+						</select>
+					</div>
+	        		
+	        		<div class="form-group">
+	                  	<label class="control-label">Area of Roof</label>
+	              		<div class="input-group">
+	                		<input type="text" class="form-control">
+	                		<span class="input-group-addon">M^2</span>
+	              		</div>
+	                </div>
+		    		<!--$('#myModal').modal('show'); -->
+		  		</div>
+			</div>
+		</div>
+	</div>
+	
 </div>
+
+
 <div class='option' id="wind">
-	WIND
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+		  		<div class="panel-heading">
+		    		<h3 class="panel-title"><img src="@routes.Assets.at("images/windturbine.png")" style="height:20px;">Wind Energy</h3>
+		  		</div>
+		  		<div class="panel-body">
+		  			<h4>First we need to ask you a few questions.</h4>
+		    		
+		    		<div class="form-group">
+	                  	<label class="control-label">Height of Building</label>
+	              		<div class="input-group">
+	                		<input type="text" class="form-control">
+	                		<span class="input-group-addon">M</span>
+	              		</div>
+	                </div>
+	                
+	                
+		  		</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
 
 
+
+
+
+
+<div id="amountOfEnergyModal" class="modal">
+ 	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        		<h4 class="modal-title">Amount of energy needed - Help</h4>
+     		</div>
+      		<div class="modal-body">
+        		<p>Should you find you are making more energy than you need, you can find more information about how to sell your energy to the electricity board.</p>
+      		</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        		<button type="button" class="btn btn-primary">More Information</button>
+      		</div>
+    	</div>
+ 	</div>
+</div>
 }
