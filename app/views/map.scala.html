@@ -2,10 +2,37 @@
 
 @main("DigitalDowsingRod - Map") {
 
-<div id="map" style="width: 700px; height: 500px; border: 1px solid black;" onload="init()"></div>
+
+
 
 <!-- pulled from the api example page -->
-<script src="https://osopenspacepro.ordnancesurvey.co.uk/osmapapi/openspace.js?key=6694613F8B469C97E0405F0AF160360A">
+<script src="https://osopenspacepro.ordnancesurvey.co.uk/osmapapi/openspace.js?key=6694613F8B469C97E0405F0AF160360A"></script>
 <!--<script type="text/javascript" src="http://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=F481BBF73994038DE0430B6CA40AB6D2"></script>-->
+<!-- 
+We will test then move to external js file
 <script src="@routes.Assets.at("javascripts/map.js")" type="text/javascript"></script>
+-->
+<script>
+var osMap;
+var postcode = "DG4 6SL";
+
+function init() {
+	var osMap = new OpenSpace.Map('map');
+	var postcodeService = new OpenSpace.Postcode();
+	postcodeService.getLonLat(postcode, onResult);
+}
+
+function onResult(postcodeCentre) {
+	console.log("Latitude and Longitude of " + postcode + " => " + postcodeCentre);
+	console.log(postcodeCentre.eastings);
+	console.log(postcodeCentre.northings);
+	osMap.setCenter(new OpenSpace.MapPoint(postcodeCentre.eastings, postcodeCentre.northings), 10);
+	//osMap.setCenter(postcodeCentre, 3);
+}
+</script>
+
+
+<div id="map" style="width: 700px; height: 500px; border: 1px solid black;"></div>
+
+
 }
