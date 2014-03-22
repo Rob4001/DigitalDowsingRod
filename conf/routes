@@ -4,12 +4,11 @@
 
 # Pages
 GET     /                           controllers.Application.index()
-GET     /home                       controllers.Application.index()
 GET		/about						controllers.Application.about()
 GET     /map                        controllers.Application.map()
 GET     /questions                  controllers.Application.questions()
 GET     /results                    controllers.Application.results()
-
+POST    /results                    controllers.Application.resultsSubmit()
 
 #Imports 
 GET     /import                     controllers.Application.dataImport()

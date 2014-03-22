@@ -1,10 +1,29 @@
-@(message: String)
+@(processId: String)
+
+@scripts = {
+<script type="text/javascript">
+$(function() {
+
+   // Initialise the progress bar.
+   var $progressbar = $('#progressbar');
+
+   // Open the web socket connection.
+   var serverUrl = $progressbar.data('url');
+   var socket = new WebSocket(serverUrl);
+
+   // Use web socket messages to update the progress bar.
+   socket.onmessage = function(event) {
+      $progressbar.css('width', parseInt(event.data)+"%");
+   };
+});
+</script>
+}
 
 @main("DigitalDowsingRod - Results") {
 
 	<h3>Calculating</h3>
 	<div class="progress progress-striped active">
-  		<div class="progress-bar" style="width: 45%"></div>
+  		<div data-url="@@{jqueryui.ProgressSocket.progress(processId)}" id="processbar" class="progress-bar" style="width: 45%"></div>
 	</div>
 	
 	<div class="jumbotron" style="clear:both;margin-top:40px;">

@@ -14,6 +14,7 @@ val appDependencies = Seq(
     "mysql" % "mysql-connector-java" % "5.1.18"
 )
 
+
 javascriptEntryPoints <<= baseDirectory(base =>
     base / "app" / "assets" / "javascripts" / "main" ** "*.js"
 )
