@@ -20,7 +20,7 @@ import java.net.URLEncoder;
 
 import controllers.actors.MasterActor;
 import controllers.actors.messages.Ping;
-import controllers.actors.messages.StartMessage;
+import controllers.actors.messages.Start;
 import controllers.actors.messages.Update;
 import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
@@ -56,7 +56,7 @@ public class Application extends Controller implements F.Function<Object,Result>
     public static Result resultsSubmit(){
     	MultipartFormData body = request().body().asMultipartFormData();
     	ActorRef myActor = Akka.system().actorOf(Props.create(MasterActor.class,""));
-    	myActor.tell(new StartMessage(body), ActorRef.noSender());
+    	myActor.tell(new Start(body), ActorRef.noSender());
     	try {
 			return ok(results.render(URLEncoder.encode(myActor.path().toSerializationFormat(),"utf-8")));
 		} catch (UnsupportedEncodingException e) {
@@ -75,7 +75,27 @@ public class Application extends Controller implements F.Function<Object,Result>
     	 ActorRef myActor = Akka.system().actorFor(uuid);
     	 try{
          return async(
-             Promise.wrap(ask(myActor, new Ping(), 10000)).map(
+             Promise.wrap(ask(myActor, new Ping(Ping.Type.PROGRESS), 10000)).map(
+                new Application()
+             )
+         );
+    	 }catch(Exception e){
+    		 return ok("100");
+    	 }
+
+        }
+    
+    public static Result result(String uuid) {
+    	try {
+			uuid= URLDecoder.decode(uuid,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return internalServerError("Server Derp");
+		}
+    	 ActorRef myActor = Akka.system().actorFor(uuid);
+    	 try{
+         return async(
+             Promise.wrap(ask(myActor, new Ping(Ping.Type.RESULT), 10000)).map(
                 new Application()
              )
          );
