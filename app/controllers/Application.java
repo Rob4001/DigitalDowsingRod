@@ -14,12 +14,17 @@ import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import controllers.actors.MasterActor;
 import controllers.actors.messages.Ping;
 import controllers.actors.messages.StartMessage;
 import controllers.actors.messages.Update;
 import akka.actor.ActorRef;
+import akka.actor.ActorSelection;
+import akka.actor.Identify;
 import akka.actor.Props;
 import akka.dispatch.ExecutionContexts;
 import akka.dispatch.Futures;
@@ -30,7 +35,7 @@ import views.html.*;
 import models.*;
 import static akka.pattern.Patterns.ask;
 
-public class Application extends Controller {
+public class Application extends Controller implements F.Function<Object,Result>{
 
     public static Result index() {
         return ok(index.render(""));
@@ -52,21 +57,32 @@ public class Application extends Controller {
     	MultipartFormData body = request().body().asMultipartFormData();
     	ActorRef myActor = Akka.system().actorOf(Props.create(MasterActor.class,""));
     	myActor.tell(new StartMessage(body), ActorRef.noSender());
-    	return ok(results.render(myActor.path().name()));
+    	try {
+			return ok(results.render(URLEncoder.encode(myActor.path().toSerializationFormat(),"utf-8")));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return internalServerError("Server Derp");
+		}
     }
     
     public static Result progress(String uuid) {
-    	 uuid =  "akka://application/user/"+uuid;
-    	 Timeout timeout = new Timeout(Duration.create(5, "seconds"));
-         ActorRef myAct=  Akka.system().actorSelection(uuid).anchor();
-         Future<Object> future = Patterns.ask(myAct, new Ping(), 3000);
-         try {
-			return ok(Integer.toString(((Update) Await.result(future, timeout.duration())).getProgress()));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+    	try {
+			uuid= URLDecoder.decode(uuid,"utf-8");
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
+			return internalServerError("Server Derp");
 		}
-         return internalServerError("Server Derp");
+    	 ActorRef myActor = Akka.system().actorFor(uuid);
+    	 try{
+         return async(
+             Promise.wrap(ask(myActor, new Ping(), 10000)).map(
+                new Application()
+             )
+         );
+    	 }catch(Exception e){
+    		 return ok("100");
+    	 }
+
         }
     
     public static Result results() {
@@ -98,6 +114,16 @@ public class Application extends Controller {
 		}
 		
         return ok(dataImport.render("File Processed Successfully"));
+    }
+
+	@Override
+	public Result apply(Object response) {
+		if(response instanceof Update){
+			return ok(Integer.toString(((Update)response).getProgress()));
+		}else{
+			return ok(response.toString());
+		}
+        
     }
 
 }
