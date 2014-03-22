@@ -2,7 +2,7 @@
 
 @main("DigitalDowsingRod") {
 
-	<form action="@routes.Application.householdImport" role="form">
+	<form method='POST' action="@routes.Application.householdImport" enctype='multipart/form-data' role="form">
 	  <div class="form-group">
 	    <label for="householdpopulation">File input</label>
 	    <input name="household" type="file" id="householdpopulation" accept='*.csv'>
