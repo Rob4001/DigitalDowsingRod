@@ -14,5 +14,5 @@ dist
 /RUNNING_PID
 /.settings
 .target/
-conf/evolutions/
+conf/evolutions/default/1.sql
 /data collections/
