@@ -1,4 +1,4 @@
-@(postcode: SmallLargeUserPostcodes)(ward: MultiMemberWards)
+@(postcode: SmallLargeUserPostcodes)(ward: MultiMemberWards)(dec: DomesticElectricityConsumption)(nondec: NonDomesticElectricityConsumption)()
 
 <table class='table'>
 <tr><th>Information</th><th>Value</th></tr>
@@ -6,4 +6,6 @@
 <tr><td>Area</td><td>@ward.multiMemberWardName</td></tr>
 <tr><td>Datazone</td><td>@ward.datazone</td></tr>
 <tr><td>Civil Parish</td><td>@postcode.civilParish</td></tr>
+<tr><td>Domestic Energy Consumption</td><td>@dec.averageOrdinaryDomesticconsumption kW/h</td></tr>
+<tr><td>Non Domestic Energy Consumption</td><td>@nondec.averageConsumption kW/h</td></tr>
 </table>

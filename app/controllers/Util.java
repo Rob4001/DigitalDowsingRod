@@ -35,9 +35,12 @@ public class Util extends Controller {
 	public static Result userInformationTable(String postcode){
 		SmallLargeUserPostcodes postcodeObj = SmallLargeUserPostcodes.getSmallLargeUserPostcodesFromPostcode(postcode);
 		MultiMemberWards wardData = MultiMemberWards.getMultiMemberWardsFromDatazone(postcodeObj.datazone);
+		System.out.println(wardData.localAuthorityName);
+		DomesticElectricityConsumption dec =  DomesticElectricityConsumption.getDomesticElectricityConsumptionFromMiddleLayerSuperOutputAreaCode(wardData.intermediateGeographyCode);
+		NonDomesticElectricityConsumption nondec =  NonDomesticElectricityConsumption.getNonDomesticElectricityConsumptionFromMiddleLayerSuperOutputAreaCode(wardData.intermediateGeographyCode);
 
 
-		return ok(userstats.render(postcodeObj,wardData));
+		return ok(userstats.render(postcodeObj,wardData, dec, nondec));
 	}
 
 

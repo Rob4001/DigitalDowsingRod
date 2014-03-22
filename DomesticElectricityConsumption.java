@@ -59,6 +59,11 @@ public class DomesticElectricityConsumption extends Model {
     	return dec;
     }
 
+    public static DomesticElectricityConsumption getDomesticElectricityConsumptionFromMiddleLayerSuperOutputAreaCode(String code){
+    	DomesticElectricityConsumption dec = find.where().eq("middle_layer_super_output_area_code", code).findUnique();
+    	return dec;
+    }
+
     public static Finder<String,DomesticElectricityConsumption> find = new Finder<String,DomesticElectricityConsumption>(
         String.class, DomesticElectricityConsumption.class
     );
