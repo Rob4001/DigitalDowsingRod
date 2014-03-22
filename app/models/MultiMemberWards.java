@@ -42,6 +42,10 @@ public class MultiMemberWards extends Model {
 		this.localAuthorityName = localAuthorityName;
     }
 
+    public static MultiMemberWards getMultiMemberWardsFromDatazone(String datazone){
+    	return find.where().eq("datazone", datazone).findUnique();
+    }
+
     public static Finder<String,MultiMemberWards> find = new Finder<String,MultiMemberWards>(
         String.class, MultiMemberWards.class
     );

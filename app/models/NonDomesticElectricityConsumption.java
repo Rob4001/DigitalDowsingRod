@@ -40,6 +40,16 @@ public class NonDomesticElectricityConsumption extends Model {
 		this.averageConsumption = averageConsumption;
     }
 
+    public static NonDomesticElectricityConsumption getNonDomesticElectricityConsumptionFromLocalAuthorityName(String localAuthorityName){
+    	NonDomesticElectricityConsumption consumption = find.where().eq("local_authority_name", localAuthorityName).findUnique();
+    	return consumption;
+    }
+
+    public static NonDomesticElectricityConsumption getNonDomesticElectricityConsumptionFromLocalAuthorityCode(String localAuthorityCode){
+    	NonDomesticElectricityConsumption consumption = find.where().eq("local_authority_code", localAuthorityCode).findUnique();
+    	return consumption;
+    }
+
     public static Finder<String,NonDomesticElectricityConsumption> find = new Finder<String,NonDomesticElectricityConsumption>(
         String.class, NonDomesticElectricityConsumption.class
     );
