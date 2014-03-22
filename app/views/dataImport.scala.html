@@ -1,0 +1,15 @@
+@(message: String)
+
+@main("DigitalDowsingRod") {
+
+	<form action="@routes.Application.householdImport" role="form">
+	  <div class="form-group">
+	    <label for="householdpopulation">File input</label>
+	    <input name="household" type="file" id="householdpopulation" accept='*.csv'>
+	    <p class="help-block">Looking for population data from census</p>
+	  </div>
+
+	  <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+
+}

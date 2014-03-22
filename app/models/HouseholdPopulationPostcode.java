@@ -31,12 +31,12 @@ public class HouseholdPopulationPostcode extends Model {
         String.class, HouseholdPopulationPostcode.class
     );
 
-    public String importFromCSV(String path){
+    public static String importFromCSV(String path){
       try {
         CSVReader reader = new CSVReader(new FileReader(path));
         String [] nextLine;
         while ((nextLine = reader.readNext()) != null) {
-            System.out.println(nextLine[0] + nextLine[1] + "etc...");
+            new HouseholdPopulationPostcode(nextLine[0], Integer.parseInt(nextLine[1]), Integer.parseInt(nextLine[2])).save();
         }
       } catch (Exception e){
 
