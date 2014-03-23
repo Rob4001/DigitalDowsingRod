@@ -55,7 +55,7 @@ public class DatazoneWindspeed extends Model {
     }
 
     public static double getWindGenerationValue10m(String datazone, double rotorDiameter){
-    	List<DatazoneWindspeed> speeds = find.where().eq('data_zone', datazone).findList();
+    	List<DatazoneWindspeed> speeds = find.where().eq("data_zone", datazone).findList();
     	int count = 0;
     	double average = 0;
     	for (DatazoneWindspeed sp : speeds) {
@@ -67,7 +67,7 @@ public class DatazoneWindspeed extends Model {
     }
 
     public static double getWindGenerationValue25m(String datazone, double rotorDiameter){
-    	List<DatazoneWindspeed> speeds = find.where().eq('data_zone', datazone).findList();
+    	List<DatazoneWindspeed> speeds = find.where().eq("data_zone", datazone).findList();
     	int count = 0;
     	double average = 0;
     	for (DatazoneWindspeed sp : speeds) {
@@ -79,7 +79,7 @@ public class DatazoneWindspeed extends Model {
     }
 
     public static double getWindGenerationValue45m(String datazone, double rotorDiameter){
-    	List<DatazoneWindspeed> speeds = find.where().eq('data_zone', datazone).findList();
+    	List<DatazoneWindspeed> speeds = find.where().eq("data_zone", datazone).findList();
     	int count = 0;
     	double average = 0;
     	for (DatazoneWindspeed sp : speeds) {

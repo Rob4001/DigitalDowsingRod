@@ -14,6 +14,8 @@ public class SlaveActor extends UntypedActor{
 	@Override
 	public void onReceive(Object msg) throws Exception {
 		if(msg instanceof Start){
+
+			this.data=((Start)msg).getData();
 			String postcode = data.postcode;
 			SmallLargeUserPostcodes postcodeObj = SmallLargeUserPostcodes.getSmallLargeUserPostcodesFromPostcode(postcode);
 			this.getSender().tell(new Update(20), this.getSelf());
@@ -23,16 +25,13 @@ public class SlaveActor extends UntypedActor{
 			this.getSender().tell(new Update(60), this.getSelf());
 			NonDomesticElectricityConsumption nondec =  NonDomesticElectricityConsumption.getNonDomesticElectricityConsumptionFromMiddleLayerSuperOutputAreaCode(wardData.intermediateGeographyCode);
 			this.getSender().tell(new Update(80), this.getSelf());
-			double generationCapacity = SolarIrradianceData.calculateAverageEnergyGeneration(16)
-
+			double solarGenerationCapacity = SolarIrradianceData.calculateAverageEnergyGeneration(data.solarArea);
+			double windGenerationCapacity10m = DatazoneWindspeed.getWindGenerationValue10m();
+			double windGenerationCapacity25m = DatazoneWindspeed.getWindGenerationValue25m();
+			double windGenerationCapacity45m = DatazoneWindspeed.getWindGenerationValue45m();
 			DatazoneWindspeed windspeed = DatazoneWindspeed.getDatazoneWindspeedFromDatazone(postcodeObj.datazone);
 			this.getSender().tell(new Update(105), this.getSelf());
-			this.data=((Start)msg).getData();
-			for (int x=0; x<=105 ; x++){
-				Thread.sleep(1000);
-				this.getSender().tell(new Update(x), this.getSelf());
-				
-			}
+			
 			getSelf().tell(new End(), getSelf());
 			getSelf().tell(PoisonPill.getInstance(), getSelf());
 		}
