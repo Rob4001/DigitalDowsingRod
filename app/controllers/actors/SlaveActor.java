@@ -1,5 +1,11 @@
 package controllers.actors;
 
+import models.DatazoneWindspeed;
+import models.DomesticElectricityConsumption;
+import models.MultiMemberWards;
+import models.NonDomesticElectricityConsumption;
+import models.SmallLargeUserPostcodes;
+import models.SolarIrradianceData;
 import play.mvc.Http.MultipartFormData;
 import controllers.actors.messages.End;
 import controllers.actors.messages.Start;
@@ -15,8 +21,12 @@ public class SlaveActor extends UntypedActor{
 	public void onReceive(Object msg) throws Exception {
 		if(msg instanceof Start){
 
+
 			this.data=((Start)msg).getData();
-			String postcode = data.postcode;
+
+			String postcode = data.asFormUrlEncoded().get("postcode")[0];
+			int solarArea = Integer.parseInt(data.asFormUrlEncoded().get("solarArea")[0]);
+
 			SmallLargeUserPostcodes postcodeObj = SmallLargeUserPostcodes.getSmallLargeUserPostcodesFromPostcode(postcode);
 			this.getSender().tell(new Update(20), this.getSelf());
 			MultiMemberWards wardData = MultiMemberWards.getMultiMemberWardsFromDatazone(postcodeObj.datazone);
@@ -25,10 +35,12 @@ public class SlaveActor extends UntypedActor{
 			this.getSender().tell(new Update(60), this.getSelf());
 			NonDomesticElectricityConsumption nondec =  NonDomesticElectricityConsumption.getNonDomesticElectricityConsumptionFromMiddleLayerSuperOutputAreaCode(wardData.intermediateGeographyCode);
 			this.getSender().tell(new Update(80), this.getSelf());
-			double solarGenerationCapacity = SolarIrradianceData.calculateAverageEnergyGeneration(data.solarArea);
-			double windGenerationCapacity10m = DatazoneWindspeed.getWindGenerationValue10m();
-			double windGenerationCapacity25m = DatazoneWindspeed.getWindGenerationValue25m();
-			double windGenerationCapacity45m = DatazoneWindspeed.getWindGenerationValue45m();
+
+			double solarGenerationCapacity = SolarIrradianceData.calculateAverageEnergyGeneration(solarArea);
+			//double windGenerationCapacity10m = DatazoneWindspeed.getWindGenerationValue10m();
+			//double windGenerationCapacity25m = DatazoneWindspeed.getWindGenerationValue25m();
+			//double windGenerationCapacity45m = DatazoneWindspeed.getWindGenerationValue45m();
+
 			DatazoneWindspeed windspeed = DatazoneWindspeed.getDatazoneWindspeedFromDatazone(postcodeObj.datazone);
 			this.getSender().tell(new Update(105), this.getSelf());
 			

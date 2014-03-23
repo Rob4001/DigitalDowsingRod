@@ -25,15 +25,14 @@ public class MasterActor extends UntypedActor{
 			slave.tell(msg, this.getSelf());
 		}else if (msg instanceof Update){
 			this.progress = ((Update)msg).getProgress();
-			
-			if(progress >= 105){
-				getSelf().tell(PoisonPill.getInstance(), getSelf());
-			}
 		}else if (msg instanceof Ping){
 			if(((Ping)msg).getType()==Ping.Type.PROGRESS){
 			this.getSender().tell(new Update(progress), this.getSelf());
 			}else if(((Ping)msg).getType()==Ping.Type.RESULT){
 				this.getSender().tell(end, this.getSelf());
+				if(end != null){
+					getSelf().tell(PoisonPill.getInstance(), getSelf());
+				}
 			}
 			
 		}else if (msg instanceof End){

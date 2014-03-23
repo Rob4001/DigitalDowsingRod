@@ -16,10 +16,23 @@ function getPercentage()
 
 							if(html=="100"){
 								clearInterval(ping);
+								getResults();
 							}
                         }
                 });
 
+            }
+            function getResults(){
+            	 $.ajax({
+                    type: "GET",
+                    url: "/report/@processId",
+                    dataType: "html",
+                    success: function(html)
+                        {
+                        $('#main').html(html);
+								clearInterval(ping);					
+                        }
+                });
             }
 
             $(document).ready(function() {
@@ -36,10 +49,5 @@ function getPercentage()
 	<h3>Calculating @processId</h3>
 	<div class="progress progress-striped active">
   		<div data-url="@@{controllers.Application.progress(processId)}" id="processbar" class="progress-bar" style="width: 0%"></div>
-	</div>
-	
-	<div class="jumbotron" style="clear:both;margin-top:40px;">
-  		<h1>Results</h1>
-  		<p>We recommend you do something.........</p>
 	</div>
 }

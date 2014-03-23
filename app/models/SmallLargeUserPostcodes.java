@@ -165,8 +165,7 @@ public class SmallLargeUserPostcodes extends Model {
     }
 
     public static SmallLargeUserPostcodes getSmallLargeUserPostcodesFromPostcode(String postcode){
-    	SmallLargeUserPostcodes tasks = find.where()
-    	.eq("postcode", postcode).findUnique();
+    	SmallLargeUserPostcodes tasks = find.where().eq("postcode", postcode).findUnique();
     	return tasks;
     }
 

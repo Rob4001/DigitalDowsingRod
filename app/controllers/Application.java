@@ -19,6 +19,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import controllers.actors.MasterActor;
+import controllers.actors.messages.End;
 import controllers.actors.messages.Ping;
 import controllers.actors.messages.Start;
 import controllers.actors.messages.Update;
@@ -140,6 +141,9 @@ public class Application extends Controller implements F.Function<Object,Result>
 	public Result apply(Object response) {
 		if(response instanceof Update){
 			return ok(Integer.toString(((Update)response).getProgress()));
+		}else if(response instanceof End){
+			End e = (End)response;
+			return ok(result.render("Hello World"));
 		}else{
 			return ok(response.toString());
 		}
