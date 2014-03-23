@@ -70,7 +70,8 @@ public class Application extends Controller implements F.Function<Object,Result>
 		}
     }
     
-    public static Result progress(String uuid) {
+    @SuppressWarnings("deprecation")
+	public static Result progress(String uuid) {
     	try {
 			uuid= URLDecoder.decode(uuid,"utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -90,7 +91,8 @@ public class Application extends Controller implements F.Function<Object,Result>
 
         }
     
-    public static Result result(String uuid) {
+    @SuppressWarnings("deprecation")
+	public static Result result(String uuid) {
     	try {
 			uuid= URLDecoder.decode(uuid,"utf-8");
 		} catch (UnsupportedEncodingException e) {
