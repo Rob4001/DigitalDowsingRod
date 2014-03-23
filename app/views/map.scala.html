@@ -60,7 +60,11 @@ function postcode(){
           		<button class="btn btn-primary" onClick="postcode()" type="button">Input Postcode</button>
          	</span>
      	</div>
-                  
+        
+        <form action="questions">
+		<input id="postOut" name="postcode" type = "Hidden"></input>
+		<input type = "submit" class="btn btn-default btn-lg" value="Go!"></input>
+		</form>
                   
                   
   		<!--<input class="form-control input-sm" id="postInput"></input>
@@ -72,10 +76,7 @@ function postcode(){
 		</div>
 		}
 		<div id="map" style="height:500px; border: 1px solid black;"></div>
-		<form action="questions">
-		<input id="postOut" name="postcode" type = "Hidden"></input>
-		<input type = "submit" class="btn btn-default btn-lg" value="Go!"></input>
-		</form>
+		
   	</div>
 </div>
 
