@@ -53,8 +53,17 @@ public class SlaveActor extends UntypedActor{
 
 			DatazoneWindspeed windspeed = DatazoneWindspeed.getDatazoneWindspeedFromDatazone(postcodeObj.datazone);
 			System.out.println(windspeed.windspeed10m);
+			String title = "";
+			if (windGenerationCapacity25m > solarCostMonoCell){
+				title += "Looks like wind could be right for you";
+			} else {
+				title += "Looks like solar could be right for you";
+			}
+
+			boolean viewSolar = data.asFormUrlEncoded().get("solar") != null;
+			boolean viewWind = data.asFormUrlEncoded().get("wind")  != null;
 			this.getSender().tell(new Update(100), this.getSelf());
-			Html render = result.render(wardData, postcodeObj, dec, nondec,"Wello Horld",solarCostMonoCell,solarCostMonoCellPayback,solarCostPolyCell,solarCostPolyCellPayback,windGenerationCapacity10m,windGenerationPayback10m,windGenerationCapacity25m,windGenerationPayback25m);
+			Html render = result.render(wardData, postcodeObj, dec, nondec,title,solarCostMonoCell,solarCostMonoCellPayback,solarCostPolyCell,solarCostPolyCellPayback,windGenerationCapacity10m,windGenerationPayback10m,windGenerationCapacity25m,windGenerationPayback25m, viewSolar, viewWind);
 			getSender().tell(new End(render), getSelf());
 			getSelf().tell(PoisonPill.getInstance(), getSelf());
 			
