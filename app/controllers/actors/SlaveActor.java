@@ -57,6 +57,7 @@ public class SlaveActor extends UntypedActor{
 			Html render = result.render(wardData, postcodeObj, dec, nondec,"Wello Horld",solarCostMonoCell,solarCostMonoCellPayback,solarCostPolyCell,solarCostPolyCellPayback,windGenerationCapacity10m,windGenerationPayback10m,windGenerationCapacity25m,windGenerationPayback25m);
 			getSender().tell(new End(render), getSelf());
 			getSelf().tell(PoisonPill.getInstance(), getSelf());
+			
 		}
 		
 	}
