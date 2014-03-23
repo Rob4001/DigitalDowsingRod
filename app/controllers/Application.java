@@ -47,11 +47,15 @@ public class Application extends Controller implements F.Function<Object,Result>
     }
     
     public static Result map() {
-        return ok(map.render(""));
+        return ok(map.render(false));
     }
     
-    public static Result questions() {
-        return ok(questions.render("G33 1RD"));
+    public static Result questions(String postcode) {
+    	if(SmallLargeUserPostcodes.getSmallLargeUserPostcodesFromPostcode(postcode)!=null){
+        return ok(questions.render(postcode));
+    	}else{
+    		return ok(map.render(true));
+    	}
     }
     
     public static Result resultsSubmit(){

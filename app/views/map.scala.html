@@ -1,69 +1,70 @@
-@(message: String)
+@(error: Boolean)
 
-@main("DigitalDowsingRod - Map") {
+@scripts = {
 
-
-
-
-<!-- pulled from the api example page -->
 <script src="https://osopenspacepro.ordnancesurvey.co.uk/osmapapi/openspace.js?key=6694613F8B469C97E0405F0AF160360A"></script>
-<!--<script type="text/javascript" src="http://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=F481BBF73994038DE0430B6CA40AB6D2"></script>-->
-<!-- 
-We will test then move to external js file
-<script src="@routes.Assets.at("javascripts/map.js")" type="text/javascript"></script>
--->
 <script>
 $( document ).ready(function() {
     init();
-    $("#postcodeTitle").html(postcode);
+    
 });
 
 
 var osMap;
-var postcode = "G33 1RD";
-
-
+var markers;
+var marker;
 
 
 function init() {
-	var $_GET = {},
-    args = location.search.substr(1).split(/&/);
-	for (var i=0; i<args.length; ++i) {
-	    var tmp = args[i].split(/=/);
-	    if (tmp[0] != "") {
-	        $_GET[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join("").replace("+", " "));
-	    }
-	}
-	
-	
-	postcode=$_GET['postcode'];
 	osMap = new OpenSpace.Map('map');
-	
-	
-	var postcodeService = new OpenSpace.Postcode();
-	
+	osMap.setCenter(new OpenSpace.MapPoint(258094, 664940), 5);
 	var screenOverlay = new OpenSpace.Layer.ScreenOverlay("coords");
      screenOverlay.setPosition(new OpenLayers.Pixel(450, 0));
      osMap.addLayer(screenOverlay);
      
-     postcodeService.getLonLat(postcode, onResult);
+     markers = new OpenLayers.Layer.Markers("Markers");
+      osMap.addLayer(markers);
+     
+     
 }
 function onResult(postcodeCentre) {
-	osMap.setCenter(postcodeCentre, 10);
 	
+	osMap.setCenter(postcodeCentre, 10);
+	var marker = new OpenLayers.Marker(postcodeCentre);
+    markers.addMarker(marker);
+	
+}
+function postcode(){
+	var postcode=$('#postInput').val();
+	var postcodeService = new OpenSpace.Postcode();
+	postcodeService.getLonLat(postcode, onResult);
+	$('#postOut').val(postcode);
 }
 </script>
 
+}
 
-
+@main("DigitalDowsingRod - Map",scripts) {
 
 
 <div class="panel panel-primary">
  	<div class="panel-heading">
-    	<h3 id="postcodeTitle" class="panel-title"></h3>
+    	<h3 class="panel-title">Where do you want to install renewable energy?</h3>
   	</div>
   	<div class="panel-body">
+  		<input id="postInput"></input>
+  		<button onClick="postcode()">Input Postcode</button>
+  		@if(error) {
+  		<div class="alert alert-danger alert-dismissable">
+  			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  			<strong>Error!</strong> Please input a valid Glasgow Postcode
+		</div>
+		}
 		<div id="map" style="height:500px; border: 1px solid black;"></div>
+		<form action="questions">
+		<input id="postOut" name="postcode" type = "Hidden"></input>
+		<input type = "submit" value="Go!"></input>
+		</form>
   	</div>
 </div>
 

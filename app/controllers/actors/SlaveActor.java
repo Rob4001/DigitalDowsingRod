@@ -48,6 +48,7 @@ public class SlaveActor extends UntypedActor{
 			Html render = result.render("Hello World",0.0,0,0.0,0);
 			getSender().tell(new End(render), getSelf());
 			getSelf().tell(PoisonPill.getInstance(), getSelf());
+			
 		}
 		
 	}
