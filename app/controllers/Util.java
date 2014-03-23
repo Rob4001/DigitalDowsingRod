@@ -15,10 +15,7 @@ import scala.concurrent.duration.Duration;
 
 import java.io.File;
 
-import controllers.actors.MasterActor;
-import controllers.actors.messages.Ping;
-import controllers.actors.messages.StartMessage;
-import controllers.actors.messages.Update;
+
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.dispatch.ExecutionContexts;
