@@ -1,4 +1,4 @@
-@(message: String)
+@(postcode: String)
 
 @scripts = {
 <script type="text/javascript">
@@ -15,6 +15,7 @@
 @main("DigitalDowsingRod - Finding More About You",scripts) {
 
 <form method='POST' action="@routes.Application.resultsSubmit" enctype='multipart/form-data'>
+<input type="hidden" value="@postcode" name="postcode" 
 <div class="row">
 	<div class="col-lg-12">
 		<h3>What Renewables are you interested in?</h3>
@@ -99,7 +100,7 @@
 	        		<div class="form-group">
 	                  	<label class="control-label">Area of Roof</label>
 	              		<div class="input-group">
-	                		<input type="text" class="form-control">
+	                		<input name="solarArea" type="text" class="form-control">
 	                		<span class="input-group-addon">M^2</span>
 	              		</div>
 	                </div>

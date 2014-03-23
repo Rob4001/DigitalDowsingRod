@@ -51,7 +51,7 @@ public class Application extends Controller implements F.Function<Object,Result>
     }
     
     public static Result questions() {
-        return ok(questions.render(""));
+        return ok(questions.render("G33 1RD"));
     }
     
     public static Result resultsSubmit(){
@@ -143,7 +143,8 @@ public class Application extends Controller implements F.Function<Object,Result>
 			return ok(Integer.toString(((Update)response).getProgress()));
 		}else if(response instanceof End){
 			End e = (End)response;
-			return ok(result.render("Hello World"));
+
+			return ok(e.getRendered());
 		}else{
 			return ok(response.toString());
 		}

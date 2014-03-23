@@ -25,12 +25,12 @@ function getPercentage()
             function getResults(){
             	 $.ajax({
                     type: "GET",
-                    url: "/report/@processId",
+                    url: "/result/@processId",
                     dataType: "html",
                     success: function(html)
                         {
                         $('#main').html(html);
-								clearInterval(ping);					
+													
                         }
                 });
             }
