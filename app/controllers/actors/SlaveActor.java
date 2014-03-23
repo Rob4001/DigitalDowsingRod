@@ -38,14 +38,20 @@ public class SlaveActor extends UntypedActor{
 			NonDomesticElectricityConsumption nondec =  NonDomesticElectricityConsumption.getNonDomesticElectricityConsumptionFromMiddleLayerSuperOutputAreaCode(wardData.intermediateGeographyCode);
 			this.getSender().tell(new Update(80), this.getSelf());
 
-			double solarGenerationCapacity = SolarIrradianceData.calculateAverageEnergyGeneration(solarArea);
+			double solarGenerationCapacity = SolarIrradianceData.calculateAverageEnergyGeneration(solarArea, 0.19);
+			
+			int noOfCells = (int) (solarArea/1.44);
+			double solarCostMonoCell = SolarIrradianceData.calculateAverageEnergyGeneration(noOfCells, 0.15);
+			double solarCostPolyCell = SolarIrradianceData.calculateAverageEnergyGeneration(noOfCells, 0.13);
+			double solarCostMonoCellPayback = SolarIrradianceData.getFeedInPotentialPayback(noOfCells, 0.15,dec.averageOrdinaryDomesticconsumption);
+			double solarCostPolyCellPayback = SolarIrradianceData.getFeedInPotentialPayback(noOfCells, 0.13,dec.averageOrdinaryDomesticconsumption);
 			double windGenerationCapacity10m = DatazoneWindspeed.getWindGenerationValue10m(postcodeObj.datazone,1);
 			double windGenerationCapacity25m = DatazoneWindspeed.getWindGenerationValue25m(postcodeObj.datazone,1);
 			double windGenerationCapacity45m = DatazoneWindspeed.getWindGenerationValue45m(postcodeObj.datazone,1);
 
 			DatazoneWindspeed windspeed = DatazoneWindspeed.getDatazoneWindspeedFromDatazone(postcodeObj.datazone);
 			this.getSender().tell(new Update(100), this.getSelf());
-			Html render = result.render("Hello World",0.0,0,0.0,0);
+			Html render = result.render("Wello Horld",0.0,0,0.0,0);
 			getSender().tell(new End(render), getSelf());
 			getSelf().tell(PoisonPill.getInstance(), getSelf());
 		}

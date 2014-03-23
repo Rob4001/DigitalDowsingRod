@@ -82,12 +82,27 @@ public class SolarIrradianceData extends Model {
         return average/count;
     }
 
+    public static double getFeedInPotentialPayback(int area,double efficiency, double energyExpenditure){
+        double averageEnergy = SolarIrradianceData.calculateAverageEnergyGeneration(area, efficiency);
+        double underEnergy = averageEnergy - energyExpenditure;
+        underEnergy = (underEnergy < 0) ? 0 : underEnergy;
+        double outPrice = 0;
+        if (underEnergy < 4000){
+            outPrice = underEnergy * 48.07;
+        } else if (underEnergy >= 4000){
+            outPrice = underEnergy * 41.93;
+        } else if (underEnergy >= 10000){
+            outPrice = underEnergy * 36.53;
+        }  
+        return outPrice;
+    }
+
     /**
      * Take an area in meters squared and calculate an average saving
      **/
-    public static double calculateAverageEnergyGeneration(int area){
+    public static double calculateAverageEnergyGeneration(int area, double efficiency){
         double irradiance = SolarIrradianceData.getYearAverageIrradience();
-        return area * irradiance * 0.19 * 0.75;
+        return area * irradiance * efficiency * 0.80;
     }
     public static Finder<String,SolarIrradianceData> find = new Finder<String,SolarIrradianceData>(
         String.class, SolarIrradianceData.class
