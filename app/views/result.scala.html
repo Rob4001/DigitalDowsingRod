@@ -6,79 +6,84 @@
   		
   		<div class="row">
   			<div class="col-lg-8">
-  				<div class='option' id="solar">
+				@if(viewSolar){
+					<div class='option' id="solar">
+						<div class="panel panel-primary">
+					  		<div class="panel-heading">
+					    		<h3 class="panel-title"><img src="@routes.Assets.at("images/solarpanel.png")" style="height:20px;">
+					    		Solar Power</h3>
+					  		</div>
+					  		<div class="panel-body">
+					  			<table class="table">
+					  			<tr>
+									  <th>Solar Panel Type</th>
+									  <th>Energy You Would Produce</th> 
+									  <th>Money you could save</th>
+									</tr>
+									  <tr>
+									  <td>MonoCrystaline</td>
+									  <td>@("%.2f".format(monoener)) kWh</td> 
+									  <td>£ @("%.2f".format(monomon/100))</td>
+									</tr>
+									<tr>
+									  <td>PolyChystaline</td>
+									  <td>@("%.2f".format(polyener)) kWh</td> 
+									  <td>£ @("%.2f".format(polymon/100))</td>
+									</tr>
+								</table>
+					  		</div><!-- panel body-->
+						</div><!-- panel -->
+					</div><!-- option -->
+				}
+			</div><!-- col lg-->
 	
-		
-		@if(viewSolar){
-			<div class="panel panel-primary">
-		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><img src="@routes.Assets.at("images/solarpanel.png")" style="height:20px;">
-		    		Solar Power</h3>
-		  		</div>
-		  		<div class="panel-body">
-		  			<table class="table">
-		  			<tr>
-						  <th>Solar Panel Type</th>
-						  <th>Energy You Would Produce</th> 
-						  <th>Money you could save</th>
-						</tr>
-						  <tr>
-						  <td>MonoCrystaline</td>
-						  <td>@("%.2f".format(monoener)) kWh</td> 
-						  <td>£ @("%.2f".format(monomon/100))</td>
-						</tr>
-						<tr>
-						  <td>PolyChystaline</td>
-						  <td>@("%.2f".format(polyener)) kWh</td> 
-						  <td>£ @("%.2f".format(polymon/100))</td>
-						</tr>
-					</table>
-		  		</div><!-- panel body-->
-			</div><!-- panel -->
-		</div><!-- option -->
-		}
-		
-	</div><!-- col lg-->
+			<div class="col-lg-4">
+				<div class="panel panel-primary">
+			  		<div class="panel-heading">
+			    		<h3 class="panel-title">
+			    		The sidebar Will wanted for stuff I forgot</h3>
+			  		</div>
+			  		<div class="panel-body">
+			  			<p>lsjdnfkjsdnfkjnaskdjfnakjsdnfkj</p>
+			  		</div>
+				</div>
+			</div>
 	
-	
-	
-	<div class="col-lg-4">
-		<h4>The sidebar Will wanted for stuff i forgot</h4>
-	</div>
-	
-</div>
+		</div><!-- row -->
 
 
-@if(viewWind){
-<div class='option' id="wind">
+
+
 	<div class="row">
 		<div class="col-lg-8">
-			<div class="panel panel-primary">
-		  		<div class="panel-heading">
-		    		<h3 class="panel-title"><img src="@routes.Assets.at("images/windturbine.png")" style="height:20px;">Wind Energy</h3>
-		  		</div>
-		  		<div class="panel-body">
-		  					  			<table class="table">
-		  			<tr>
-					  <th>Wind Turbine Height</th>
-					  <th>Energy You Would Produce</th> 
-					  <th>Money you could save</th>
-					</tr>
-					  <tr>
-					  <td>10m</td>
-					  <td>@("%.2f".format(windGeneration10m)) kWh</td> 
-					  <td>£ @("%.2f".format(windPayback10m/100))</td>
-					</tr>
-					<tr>
-					  <td>25m</td>
-					  <td>@("%.2f".format(windGeneration25m)) kWh</td> 
-					  <td>£ @("%.2f".format(windPayback25m/100))</td>
-					</tr>
-					</table>
-		  		</div>
-			</div>
-		</div>
-	</div>
-</div>
-}
-</div>
+			@if(viewWind){
+				<div class='option' id="wind">
+					<div class="panel panel-primary">
+				  		<div class="panel-heading">
+				    		<h3 class="panel-title"><img src="@routes.Assets.at("images/windturbine.png")" style="height:20px;">Wind Energy</h3>
+				  		</div>
+				  		<div class="panel-body">
+				  			<table class="table">
+				  				<tr>
+							 		<th>Wind Turbine Height</th>
+									  <th>Energy You Would Produce</th> 
+									  <th>Money you could save</th>
+							</tr>
+							  <tr>
+							  <td>10m</td>
+							  <td>@("%.2f".format(windGeneration10m)) kWh</td> 
+							  <td>£ @("%.2f".format(windPayback10m/100))</td>
+							</tr>
+							<tr>
+							  <td>25m</td>
+							  <td>@("%.2f".format(windGeneration25m)) kWh</td> 
+							  <td>£ @("%.2f".format(windPayback25m/100))</td>
+							</tr>
+							</table>
+						</div><!-- panel body-->
+					</div><!-- panel -->
+				</div><!-- option -->
+		}
+	</div><!-- col lg-->
+</div><!-- row-->
+
