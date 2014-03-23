@@ -13,26 +13,41 @@ We will test then move to external js file
 <script src="@routes.Assets.at("javascripts/map.js")" type="text/javascript"></script>
 -->
 <script>
+$( document ).ready(function() {
+    init();
+    $("#postcodeTitle").html(postcode);
+});
+
+
 var osMap;
-var postcode = "DG4 6SL";
+var postcode = "G33 1RD";
+
+
+
 
 function init() {
-	var osMap = new OpenSpace.Map('map');
+	osMap = new OpenSpace.Map('map');
 	var postcodeService = new OpenSpace.Postcode();
 	postcodeService.getLonLat(postcode, onResult);
 }
-
 function onResult(postcodeCentre) {
-	console.log("Latitude and Longitude of " + postcode + " => " + postcodeCentre);
-	console.log(postcodeCentre.eastings);
-	console.log(postcodeCentre.northings);
-	osMap.setCenter(new OpenSpace.MapPoint(postcodeCentre.eastings, postcodeCentre.northings), 10);
-	//osMap.setCenter(postcodeCentre, 3);
+	osMap.setCenter(postcodeCentre, 10);
 }
 </script>
 
 
-<div id="map" style="width: 700px; height: 500px; border: 1px solid black;"></div>
+
+
+
+<div class="panel panel-primary">
+ 	<div class="panel-heading">
+    	<h3 id="postcodeTitle" class="panel-title"></h3>
+  	</div>
+  	<div class="panel-body">
+		<div id="map" style="height:500px; border: 1px solid black;"></div>
+  	</div>
+</div>
+
 
 
 }
