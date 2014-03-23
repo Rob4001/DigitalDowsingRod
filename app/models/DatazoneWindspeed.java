@@ -54,6 +54,42 @@ public class DatazoneWindspeed extends Model {
 
     }
 
+    public static double getWindGenerationValue10m(String datazone, double rotorDiameter){
+    	List<DatazoneWindspeed> speeds = find.where().eq('data_zone', datazone).findList();
+    	int count = 0;
+    	double average = 0;
+    	for (DatazoneWindspeed sp : speeds) {
+    		average+=sp.windspeed10m;
+    		count++;
+    	}
+    	average = average/count;
+    	return 0.01238 * rotorDiameter * average;
+    }
+
+    public static double getWindGenerationValue25m(String datazone, double rotorDiameter){
+    	List<DatazoneWindspeed> speeds = find.where().eq('data_zone', datazone).findList();
+    	int count = 0;
+    	double average = 0;
+    	for (DatazoneWindspeed sp : speeds) {
+    		average+=sp.windspeed25m;
+    		count++;
+    	}
+    	average = average/count;
+    	return 0.01238 * rotorDiameter * average;
+    }
+
+    public static double getWindGenerationValue45m(String datazone, double rotorDiameter){
+    	List<DatazoneWindspeed> speeds = find.where().eq('data_zone', datazone).findList();
+    	int count = 0;
+    	double average = 0;
+    	for (DatazoneWindspeed sp : speeds) {
+    		average+=sp.windspeed45m;
+    		count++;
+    	}
+    	average = average/count;
+    	return 0.01238 * rotorDiameter * average;
+    }
+
     public static Finder<String,DatazoneWindspeed> find = new Finder<String,DatazoneWindspeed>(
         String.class, DatazoneWindspeed.class
     );
