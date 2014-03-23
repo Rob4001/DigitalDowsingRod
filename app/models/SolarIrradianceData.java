@@ -69,6 +69,26 @@ public class SolarIrradianceData extends Model {
     	this.irradiationJMS = irradiationJMS;
     }
 
+    public static double getYearAverageIrradience(){
+        List<SolarIrradianceData> irr = find.all();
+        double average = 0.0;
+        int count = 0;
+        for (SolarIrradianceData r : irr) {
+            if (r.irradiation != -999){
+                average += r.irradiation;
+                count++;
+            }
+        }
+        return average/count;
+    }
+
+    /**
+     * Take an area in meters squared and calculate an average saving
+     **/
+    public static double calculateAverageEnergyGeneration(int area){
+        double irradiance = SolarIrradianceData.getYearAverageIrradience();
+        return area * irradiance * 0.19 * 0.75;
+    }
     public static Finder<String,SolarIrradianceData> find = new Finder<String,SolarIrradianceData>(
         String.class, SolarIrradianceData.class
     );
