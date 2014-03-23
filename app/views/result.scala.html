@@ -1,4 +1,4 @@
-@(intro: String,monoener : Double,monomon: Integer,polyener : Double,polymon: Integer)
+@(ward: MultiMemberWards, postcode: SmallLargeUserPostcodes,dec: DomesticElectricityConsumption,nondec: NonDomesticElectricityConsumption,intro: String,monoener : Double,monomon: Double,polyener : Double,polymon: Double, windGeneration10m: Double, windPayback10m: Double,windGeneration25m: Double,windPayback25m: Double)
 
 <div class="jumbotron" style="clear:both;margin-top:40px;">
   		<h1>Results</h1>
@@ -20,13 +20,13 @@
 </tr>
   <tr>
   <td>MonoCrystaline</td>
-  <td>@monoener</td> 
-  <td>@monomon</td>
+  <td>@("%.2f".format(monoener)) kWh</td> 
+  <td>£ @("%.2f".format(monomon/100))</td>
 </tr>
 <tr>
   <td>PolyChystaline</td>
-  <td>@polyener</td> 
-  <td>@polymon</td>
+  <td>@("%.2f".format(polyener)) kWh</td> 
+  <td>£ @("%.2f".format(polymon/100))</td>
 </tr>
 					</table>
 		  		</div>
@@ -45,7 +45,23 @@
 		    		<h3 class="panel-title"><img src="@routes.Assets.at("images/windturbine.png")" style="height:20px;">Wind Energy</h3>
 		  		</div>
 		  		<div class="panel-body">
-		  			
+		  					  			<table class="table">
+		  			<tr>
+					  <th>Wind Turbine Height</th>
+					  <th>Energy You Would Produce</th> 
+					  <th>Money you could save</th>
+					</tr>
+					  <tr>
+					  <td>10m</td>
+					  <td>@("%.2f".format(windGeneration10m)) kWh</td> 
+					  <td>£ @("%.2f".format(windPayback10m/100))</td>
+					</tr>
+					<tr>
+					  <td>25m</td>
+					  <td>@("%.2f".format(windGeneration25m)) kWh</td> 
+					  <td>£ @("%.2f".format(windPayback25m/100))</td>
+					</tr>
+					</table>
 		  		</div>
 			</div>
 		</div>

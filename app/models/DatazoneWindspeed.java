@@ -87,7 +87,37 @@ public class DatazoneWindspeed extends Model {
     		count++;
     	}
     	average = average/count;
-    	return 0.01238 * rotorDiameter * average;
+    	return 0.01238 * rotorDiameter * average*2.23693629;
+    }
+
+    public static double getWindGenerationValue10mPayback(String datazone, double rotorDiameter, double energyExpenditure){
+    	double kWhGenerated = DatazoneWindspeed.getWindGenerationValue10m(datazone, rotorDiameter);
+    	double underEnergy = kWhGenerated - energyExpenditure;
+        underEnergy = (underEnergy < 0) ? 0 : underEnergy;
+        double outPrice = 0;
+        if (underEnergy < 4000){
+            outPrice = underEnergy * 48.07;
+        } else if (underEnergy >= 4000){
+            outPrice = underEnergy * 41.93;
+        } else if (underEnergy >= 10000){
+            outPrice = underEnergy * 36.53;
+        }  
+        return outPrice;
+    }
+
+    public static double getWindGenerationValue25mPayback(String datazone, double rotorDiameter, double energyExpenditure){
+    	double kWhGenerated = DatazoneWindspeed.getWindGenerationValue25m(datazone, rotorDiameter);
+    	double underEnergy = kWhGenerated - energyExpenditure;
+        underEnergy = (underEnergy < 0) ? 0 : underEnergy;
+        double outPrice = 0;
+        if (underEnergy < 4000){
+            outPrice = underEnergy * 48.07;
+        } else if (underEnergy >= 4000){
+            outPrice = underEnergy * 41.93;
+        } else if (underEnergy >= 10000){
+            outPrice = underEnergy * 36.53;
+        }  
+        return outPrice;
     }
 
     public static Finder<String,DatazoneWindspeed> find = new Finder<String,DatazoneWindspeed>(

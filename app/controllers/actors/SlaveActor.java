@@ -45,13 +45,16 @@ public class SlaveActor extends UntypedActor{
 			double solarCostPolyCell = SolarIrradianceData.calculateAverageEnergyGeneration(noOfCells, 0.13);
 			double solarCostMonoCellPayback = SolarIrradianceData.getFeedInPotentialPayback(noOfCells, 0.15,dec.averageOrdinaryDomesticconsumption);
 			double solarCostPolyCellPayback = SolarIrradianceData.getFeedInPotentialPayback(noOfCells, 0.13,dec.averageOrdinaryDomesticconsumption);
-			double windGenerationCapacity10m = DatazoneWindspeed.getWindGenerationValue10m(postcodeObj.datazone,1);
-			double windGenerationCapacity25m = DatazoneWindspeed.getWindGenerationValue25m(postcodeObj.datazone,1);
-			double windGenerationCapacity45m = DatazoneWindspeed.getWindGenerationValue45m(postcodeObj.datazone,1);
+			double windGenerationCapacity10m = DatazoneWindspeed.getWindGenerationValue10m(postcodeObj.datazone,20);
+			double windGenerationPayback10m = DatazoneWindspeed.getWindGenerationValue10mPayback(postcodeObj.datazone,20,dec.averageOrdinaryDomesticconsumption);
+			double windGenerationCapacity25m = DatazoneWindspeed.getWindGenerationValue25m(postcodeObj.datazone,20);
+			double windGenerationPayback25m = DatazoneWindspeed.getWindGenerationValue25mPayback(postcodeObj.datazone,20,dec.averageOrdinaryDomesticconsumption);
+			double windGenerationCapacity45m = DatazoneWindspeed.getWindGenerationValue45m(postcodeObj.datazone,20);
 
 			DatazoneWindspeed windspeed = DatazoneWindspeed.getDatazoneWindspeedFromDatazone(postcodeObj.datazone);
+			System.out.println(windspeed.windspeed10m);
 			this.getSender().tell(new Update(100), this.getSelf());
-			Html render = result.render("Wello Horld",0.0,0,0.0,0);
+			Html render = result.render(wardData, postcodeObj, dec, nondec,"Wello Horld",solarCostMonoCell,solarCostMonoCellPayback,solarCostPolyCell,solarCostPolyCellPayback,windGenerationCapacity10m,windGenerationPayback10m,windGenerationCapacity25m,windGenerationPayback25m);
 			getSender().tell(new End(render), getSelf());
 			getSelf().tell(PoisonPill.getInstance(), getSelf());
 		}
