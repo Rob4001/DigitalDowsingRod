@@ -51,6 +51,12 @@ public class SlaveActor extends UntypedActor{
 			double windGenerationPayback25m = DatazoneWindspeed.getWindGenerationValue25mPayback(postcodeObj.datazone,20,dec.averageOrdinaryDomesticconsumption);
 			double windGenerationCapacity45m = DatazoneWindspeed.getWindGenerationValue45m(postcodeObj.datazone,20);
 
+			double pricePerWatt = 13.52;
+			solarCostMonoCellPayback = 13.52 * solarCostMonoCell;
+			solarCostPolyCellPayback = 13.52 * solarCostPolyCell;
+			windGenerationPayback10m = 13.52 * windGenerationCapacity10m;
+			windGenerationPayback25m = 13.52 * windGenerationCapacity25m;
+
 			DatazoneWindspeed windspeed = DatazoneWindspeed.getDatazoneWindspeedFromDatazone(postcodeObj.datazone);
 			System.out.println(windspeed.windspeed10m);
 			String title = "";
