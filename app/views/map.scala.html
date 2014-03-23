@@ -26,12 +26,31 @@ var postcode = "G33 1RD";
 
 
 function init() {
+	var $_GET = {},
+    args = location.search.substr(1).split(/&/);
+	for (var i=0; i<args.length; ++i) {
+	    var tmp = args[i].split(/=/);
+	    if (tmp[0] != "") {
+	        $_GET[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join("").replace("+", " "));
+	    }
+	}
+	
+	
+	postcode=$_GET['postcode'];
 	osMap = new OpenSpace.Map('map');
+	
+	
 	var postcodeService = new OpenSpace.Postcode();
-	postcodeService.getLonLat(postcode, onResult);
+	
+	var screenOverlay = new OpenSpace.Layer.ScreenOverlay("coords");
+     screenOverlay.setPosition(new OpenLayers.Pixel(450, 0));
+     osMap.addLayer(screenOverlay);
+     
+     postcodeService.getLonLat(postcode, onResult);
 }
 function onResult(postcodeCentre) {
 	osMap.setCenter(postcodeCentre, 10);
+	
 }
 </script>
 
