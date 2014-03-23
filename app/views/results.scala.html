@@ -16,7 +16,7 @@ function getPercentage()
 
 							if(html=="100"){
 								clearInterval(ping);
-								getResults();
+								setTimeout(getResults(),1000);
 							}
                         }
                 });
@@ -46,8 +46,8 @@ function getPercentage()
 
 @main("DigitalDowsingRod - Results",scripts(processId)) {
 
-	<h3>Calculating @processId</h3>
+	<h3>Calculating</h3>
 	<div class="progress progress-striped active">
-  		<div data-url="@@{controllers.Application.progress(processId)}" id="processbar" class="progress-bar" style="width: 0%"></div>
+  		<div  id="processbar" class="progress-bar" style="width: 0%"></div>
 	</div>
 }

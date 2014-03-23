@@ -51,6 +51,7 @@ public class Application extends Controller implements F.Function<Object,Result>
     }
     
     public static Result questions(String postcode) {
+    	postcode = postcode.toUpperCase();
     	if(SmallLargeUserPostcodes.getSmallLargeUserPostcodesFromPostcode(postcode)!=null){
         return ok(questions.render(postcode));
     	}else{
