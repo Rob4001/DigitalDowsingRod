@@ -13,7 +13,7 @@ import akka.actor.UntypedActor;
 public class MasterActor extends UntypedActor {
 
 	private ActorRef slave;
-	private int progress;
+	private Update update;
 	private End end;
 
 	public MasterActor(String s) {
@@ -25,11 +25,11 @@ public class MasterActor extends UntypedActor {
 			slave = Akka.system().actorOf(Props.create(SlaveActor.class, ""));
 			slave.tell(msg, this.getSelf());
 		} else if (msg instanceof Update) {
-			this.progress = ((Update) msg).getProgress();
+			this.update = ((Update) msg);
 		} else if (msg instanceof Ping) {
 			System.out.println(((Ping)msg).getType().name());
 			if (((Ping) msg).getType() == Ping.Type.PROGRESS) {
-				this.getSender().tell(new Update(progress), this.getSelf());
+				this.getSender().tell(update, this.getSelf());
 			} else if (((Ping) msg).getType() == Ping.Type.RESULT) {	
 				if (end != null) {
 					this.getSender().tell(end, this.getSelf());

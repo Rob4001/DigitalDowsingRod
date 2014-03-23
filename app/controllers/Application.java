@@ -147,7 +147,9 @@ public class Application extends Controller implements F.Function<Object,Result>
 	@Override
 	public Result apply(Object response) {
 		if(response instanceof Update){
-			return ok(Integer.toString(((Update)response).getProgress()));
+			Update u = (Update) response;
+			String res = u.getProgress()+"/"+u.getReason();
+			return ok(res);
 		}else if(response instanceof End){
 			End e = (End)response;
 

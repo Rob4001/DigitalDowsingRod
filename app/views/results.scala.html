@@ -12,9 +12,13 @@ function getPercentage()
                     dataType: "html",
                     success: function(html)
                         {
-                        $('#processbar').css("width",html+"%");
-
-							if(html=="100"){
+                        var parts = html.split("/");
+                        
+                        $('#processbar').css("width",parts[0]+"%");
+							if(parts.length>1){
+								$('#reason').html(parts[1]);
+							}
+							if(parts[0]=="100"){
 								clearInterval(ping);
 								setTimeout(getResults(),1000);
 							}
@@ -47,6 +51,7 @@ function getPercentage()
 @main("DigitalDowsingRod - Results",scripts(processId)) {
 
 	<h3>Calculating</h3>
+	<p id="reason"></p>
 	<div class="progress progress-striped active">
   		<div  id="processbar" class="progress-bar" style="width: 0%"></div>
 	</div>
